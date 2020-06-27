@@ -1,0 +1,53 @@
+Exercise: Making a POST Request
+We've fetched some data from the SpaceX API. Now it's your turn to make some requests!
+
+Using Deno's fetch function, make a POST request to https://reqres.in/api/users with the following body.
+
+{
+  name: "Elon Musk",
+  job: "billionaire"
+}
+And print out the body of the server's response.
+
+Hint: Use the asynchronous json() method on the response object.
+
+Bonus: What happens when you pass in "Content-Type": "application/json; charset=UTF-8" as a header in the options object of the request.
+
+Scroll to see the answer...
+
+
+
+
+Your code in mod.ts:
+
+const response = await fetch("https://reqres.in/api/users", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json; charset=UTF-8"
+  },
+  body: JSON.stringify({
+    name: "Elon Musk",
+    job: "billionaire"
+  })
+});
+ 
+const body = await response.json();
+ 
+console.log(body);
+Which can be run using:
+
+deno run --allow-net mod.ts
+
+The server should respond with:
+
+{
+  name: "Elon Musk",
+  job: "billionaire",
+  id: "<some id>",
+  createdAt: "<current timestamp>"
+}
+The Content-Type header ensures that the server properly reads the body of our request as JSON. Without it, the name and job are not properly parsed.
+
+
+
+Have questions or issues you are encountering? Post your questions in our #deno channel on Discord! (see lecture 2 to join the community)
